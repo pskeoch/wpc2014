@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="ninja-slider.css" rel="stylesheet" type="text/css" />
+    <script src="ninjaVideoPlugin.js" type="text/javascript"></script>
+    <script src="ninja-slider.js" type="text/javascript"></script>
+    <style>
+        body {font: normal 0.9em Arial;margin:0;}
+        a {color:#1155CC;}
+        ul li {padding: 10px 0;}
+        
+        /* --- override the ninja-slider.css settings --- */
+        #ninja-slider {padding:0 0;}
+        
+        /* --- Show pause/play button --- */
+        #ninja-slider-pause-play
+        {
+            display:block;
+            position: absolute;    
+            top:auto;
+            bottom:0;    
+            width:64px;
+            height:64px;
+            display:inline-block;
+            background-image: url(img/navs.png);
+            left: 0;
+            background-position:0 -128px;
+        }
+
+        #ninja-slider-pause-play.paused {background-position:-64px -128px;} 
+                    
+    </style>
+    <script>
+        nsOptions.aspectRatio = "auto";
+        nsOptions.effect = "fade";
+        nslider.reload();
+    </script>
+</head>
+<body>
+    <div>     
+        <div id='ninja-slider'>
+            <ul>
+                <li><div data-image="img/md/1.jpg"></div></li>
+                <li>
+                    <div data-image="img/md/2.jpg">
+                        <h3 style="position:absolute;margin:0;width:100%;height:36px;line-height:36px;top:auto;bottom:0px;text-align:center;color:#aaa;background:rgba(0,0,0,0.25);">
+                            Caption of this slide
+                        </h3>
+                    </div>
+                </li>
+                <li style="text-align:center;">
+                    <div style="max-width:380px;overflow:hidden;text-align:left;">
+                        <div style="color:#999;font-family:Arial;padding:16px;">
+                            <h2>Lorem ipsum dolor sit amet</h2>
+                            <img src="img/md/3.jpg" alt="" style="width:120px;float:right;margin:0 0 20px 20px;border:1px solid #333;" />
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.<br /><br />
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div data-image="img/md/4.jpg" style="background-size: auto 80%;background-position:center 80%;">
+                        <h3 style="position:absolute;margin:0;width:100%;top:16px;bottom:auto;text-align:center;color:#aaa;">
+                            Ut Enim Ad Minim Veniam
+                        </h3>
+                    </div>
+                </li>
+                <li>
+                    <div data-image="img/md/5.jpg">
+                        <a class="video" href="http://vimeo.com/82299487"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="width:700px;margin:30px auto;">
+        <p><a href="demo1.html">demo 1</a> demo 2</p><br /><br />
+        <h3>Check out the source code of this page:</h3>
+        <ul>
+            <li>The second and third slide shows how captions or HTML content can be added into a slide. There are certain <span style="color:red;font-size:26px;">rules you should follow</span> when adding the HTML content. Please read FAQ#1 on page <a href="http://menucool.com/responsive-slider">Ninja Slider</a> for details.</li>
+            <li>The 4th slide shows how responsive image can be customized to a specific position and scale;<br />
+                Note: The responsive image's default style: background-size:contain; background-position: center center;<br />
+                Learn more about <a href="http://www.w3schools.com/cssref/css3_pr_background-size.asp" target="_blank">CSS3 background-size</a>
+            </li>
+            <li>The last slide shows how video is embedded into a slide.<br />
+                Note: ninjaVideoPlugin.js should be linked before the ninja-slider.js link.</li>
+            <li>In the head section we added the styles to show the pause/play button.</li>
+            <li>The slider's built-in function, reload(), has been called by this page to apply the option changes.<br />
+                Note: the reload function is used only when the slider markup needs to be built or updated on the fly (after page load).
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

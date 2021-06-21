@@ -1,0 +1,146 @@
+/* Visit http://www.menucool.com/ninja-slider.aspx for instructions */
+
+#photslider1-slider
+{
+    width:900px;
+    margin:40px 0px 0px 0px; /*center aligned*/
+    background:#222;
+}
+#photslider1-slider > ul
+{
+    padding:20px 0;
+}
+
+/* slide */
+#photslider1-slider li > div, #photslider1-slider li > a
+{
+    max-width:960px;
+    margin:0 auto; /* center each slide */
+    border-radius:6px;
+    /*background:#999;*/
+    position: relative;
+    display:block;
+    box-shadow: 0 1px 5px rgba(0,0,0,.8),inset 0 0 1px rgba(255,255,255,.4);
+    transition:none!important;
+}
+
+/* loading image indicator */    
+#photslider1-slider div.preload 
+{
+    background: black url(img/loading.gif) no-repeat center center;
+}
+
+/*----- video -----*/
+#photslider1-slider a.video 
+{
+	position:absolute;
+    border:0;top:0;left:0;
+	width:100%;height:100%;
+	background:transparent url(img/video.png) no-repeat 50% 50%;
+    transition:none!important;
+}
+  
+/*------ pager ------*/      
+/* The pager id should be: slider id + "-pager" */    
+#photslider1-slider-pager
+{
+    padding-top:12px; /* set the distance away from the slider */
+    margin:40px 0px 0px 0px; /* center align */
+    text-align:center;
+    display:table;
+    font-size:0;
+	width:900px;
+}
+         
+#photslider1-slider-pager a 
+{
+    display:inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #CCCCCC;
+    font-size:0;
+    margin:2px 6px;
+    cursor:pointer;
+    border-radius:10px;
+    box-shadow:inset 0 1px 3px #666666;
+}
+#photslider1-slider-pager a:hover 
+{
+    opacity:0.6;
+}
+#photslider1-slider-pager a.active 
+{
+    background-color:#1293dc;
+    box-shadow:inset 0 1px 3px -1px #28b4ea,0 1px 1px rgba(0,0,0,.5);
+    background-image:linear-gradient(top,#1293dc,#0f6297);
+}
+ 
+/* --------- navigation controls ------- */   
+/* The nav id should be: slider id + ("-prev", "-next", and "-pause-play") */    
+#photslider1-slider-prev, #photslider1-slider-next
+{
+    position: absolute;
+    top: 40%;
+    width:64px;
+    height:64px;
+    display:inline-block;
+    margin:0;
+    background-image: url(img/navs.png);
+}
+#photslider1-slider-prev {
+    left: 0;
+    background-position:0 0;
+}
+#photslider1-slider-prev:hover {background-position:0 -64px;}
+
+#photslider1-slider-next {
+    right: 0;
+    background-position:-64px 0;
+}
+#photslider1-slider-next:hover {background-position:-64px -64px;}
+
+#photslider1-slider-pause-play { display:none;}
+
+
+
+/*------- Settings that usually don't need to change ------- */
+#photslider1-slider > ul
+{
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#photslider1-slider-pager, #photslider1-slider-prev, #photslider1-slider-next, #photslider1-slider-pause-play
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#photslider1-slider
+{
+    position: relative;
+    overflow: hidden;
+    /*visibility: hidden;*/
+    padding:0;
+}
+#photslider1-slider > ul
+{
+    overflow: hidden;
+    position: relative;
+    list-style:none;
+    margin:0;
+}
+
+#photslider1-slider > ul > li
+{
+    float: left;
+    width: 100%;
+    position: relative;
+    list-style:none;
+    padding:0;margin:0;
+}

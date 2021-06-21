@@ -1,0 +1,586 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<script src="wpcsearch.js" language="javascript" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="wpc2014.css"></link>
+
+<script language="javascript">
+
+function advsearchdisp() {
+	if (document.getElementById('advformarea').className == 'hideelem') {
+		document.getElementById('advformarea').className = 'showelem';
+		document.getElementById('advformarea').setAttribute('class','showelem');
+		document.getElementById('open-advsearch').style.backgroundPosition = "0px -44px";
+	} else {
+		document.getElementById('advformarea').className = 'hideelem';
+		document.getElementById('advformarea').setAttribute('class','hideelem');
+		document.getElementById('open-advsearch').style.backgroundPosition = "0px -2px";
+	}
+}
+function thenavdropdisp() {
+	if (document.getElementById('thenavdrop').className == 'hideelem') {
+		document.getElementById('thenavdrop').className = 'showelem';
+		document.getElementById('thenavdrop').setAttribute('class','showelem');
+	} else {
+		document.getElementById('thenavdrop').className = 'hideelem';
+		document.getElementById('thenavdrop').setAttribute('class','hideelem');
+	}
+}
+function sessblkdisp(sessblkid) {
+	blklist = new Array();
+	blklist = ['blklistBlock1','blklistBlock2','blklistBlock3','blklistBlock4'];
+	if (document.getElementById(sessblkid).className == 'sessblk-hide') {
+		document.getElementById(sessblkid).className = 'sessblk-show';
+		document.getElementById(sessblkid).setAttribute('class','sessblk-show');		
+	} else {
+		document.getElementById(sessblkid).className = 'sessblk-hide';
+		document.getElementById(sessblkid).setAttribute('class','sessblk-hide');
+	}	
+	for (i=0;i<4;i++) {
+		if (blklist[i]==sessblkid) {
+		} else {
+			document.getElementById(blklist[i]).className = 'sessblk-hide';
+		}
+	}
+}
+function sessareadisp(sessareaid) {
+	if (document.getElementById(sessareaid).className == 'sessarea-hide') {
+		document.getElementById(sessareaid).className = 'sessarea-show';
+		document.getElementById(sessareaid).setAttribute('class','sessarea-show');		
+	} else {
+		document.getElementById(sessareaid).className = 'sessarea-hide';
+		document.getElementById(sessareaid).setAttribute('class','sessarea-hide');
+	}
+}
+
+function showhideelem(elem) {
+	if (document.getElementById(elem).className == 'showelem') {
+		document.getElementById(elem).className = 'hideelem';
+		document.getElementById(elem).setAttribute('class','hideelem');		
+	} else {
+		document.getElementById(elem).className = 'showelem';
+		document.getElementById(elem).setAttribute('class','showelem');
+	}
+}
+
+function disppreview(speakref) {
+	
+	document.getElementById('speakprev-name').innerHTML = speaknamearr[speakref];
+	document.getElementById('speakprev-joborgcountry').innerHTML = speakjobarr[speakref] + ' ' + speakorgarr[speakref] + ', ' + speakcountryarr[speakref];
+	document.getElementById('speakprev-name').innerHTML = speaknamearr[speakref];
+	document.getElementById('speakprev-title').innerHTML = speaktitlearr[speakref];
+	document.getElementById('speakprev-abstract').innerHTML = speakabstarr[speakref];
+	tableHTML = '<tr>';
+	toptabHTML = '';
+	lowtabHTML = '';
+	
+	if (speakpapfilearr[speakref]!='') {
+		toptabHTML = toptabHTML + '<td class="tdlnk" id="speakprev-paplnk" width="128" height="76" align="center"><a href="pdfs/' + speakpapfilearr[speakref] + '.pdf" target="_blank"><img src="images/Adobe_PDF_Icon.png" height="48" border="0"></a></td>';
+		lowtabHTML = lowtabHTML + '<td align="center">paper</td>';
+	} else {
+		//document.getElementById('speakprev-paplnk').innerHTML = '<img src="images/Adobe_PDF_Icon-none.png" height="48">';
+		//document.getElementById('speakprev-paplnk').className = 'tdnolnk';
+		//document.getElementById('speakprev-paplnk').setAttribute('class','tdnolnk');			
+	}
+						
+	if (speakpresfilearr[speakref]!='') {
+		toptabHTML = toptabHTML + '<td class="tdlnk" id="speakprev-preslnk" width="128" height="76" align="center"><a href="pdfs/' + speakpresfilearr[speakref] + '.pdf" target="_blank"><img src="images/Adobe_PDF_Icon.png" height="48" border="0"></a></td>';
+		lowtabHTML = lowtabHTML + '<td align="center">presentation</td>';
+	} else {
+		//document.getElementById('speakprev-preslnk').innerHTML = '<img src="images/Adobe_PDF_Icon-none.png" height="48">';
+		//document.getElementById('speakprev-preslnk').className = 'tdnolnk';
+		//document.getElementById('speakprev-preslnk').setAttribute('class','tdnolnk');
+	}
+						
+	if (speakvidfilearr[speakref]!='') {
+		toptabHTML = toptabHTML + '<td class="tdlnk" id="speakprev-vidlnk" width="128" height="76" align="center"><a href="pdfs/' + 'onClick="openvidplayer(' + speakref + ')"><img src="images/Adobe_PDF_Icon.png" height="48" border="0"></a></td>';
+		lowtabHTML = lowtabHTML + '<td align="center">film</td>';
+	} else {
+		//document.getElementById('speakprev-vidlnk').innerHTML = '<img src="images/icon_mpeg4-none.gif" height="48">';
+		//document.getElementById('speakprev-vidlnk').className = 'tdnolnk';
+		//document.getElementById('speakprev-vidlnk').setAttribute('class','tdnolnk');
+	}
+	
+	tableHTML = '<tr>' + toptabHTML + '</tr><tr>' + lowtabHTML + '</tr>';
+	document.getElementById('prevlnkstable').innerHTML = tableHTML;
+	showhideelem('speakpreviewbox');
+}
+
+function openvidplayer(speakref) {
+	document.getElementById('vidplayer').src = 'movs/' + speakvidfilearr[speakref];
+	document.getElementById('vidplayer').load();
+	document.getElementById('vidplayer').play();
+	
+	showhideelem('vidplayarea');
+}
+
+function closevidplayer() {
+	document.getElementById('vidplayer').pause();
+	showhideelem('vidplayarea');
+}
+
+function navhover() {
+	document.getElementById('thenav').style.borderColor = '#444';
+	document.getElementById('navdroplist').style.display = 'block';
+}
+function navunhover() {
+	document.getElementById('thenav').style.borderColor = '#fff';
+	document.getElementById('navdroplist').style.display = 'none';
+}
+function navlnkhover(liobj) {
+	liobj.style.backgroundColor = '#f60';
+	liobj.style.color = '#ccc';
+}
+function navlnkunhover(liobj) {
+	liobj.style.background = 'rgba(240,240,240,0.88)';
+	liobj.style.color = '#444';
+}
+
+function searchsessionlnk(speakref) {
+	
+	var keys = [];
+	for (key in blockarr) {
+		if (blockarr.hasOwnProperty(key)) {
+			if (blockarr[key].indexOf(speaksessarr[speakref])!=-1) {
+				targblock = key;
+			}
+		}
+	}
+	techprogblocks = ['Block1','Block2','Block3','Block4'];
+	
+	if (techprogblocks.indexOf(targblock)!=-1) {
+		window.location.replace('techprog5.html?sesstarg=' + speakref.toString());
+	} else {
+		window.location.replace('plens5.html?sesstarg=' + speakref.toString());
+	}
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+	<div id="focalband">
+    	<a href="http://www.world-petroleum.org" target="_blank"><p style="height:90px; width:280px; position:relative; left:730px; top:46px; margin:0px; float:left;"></p></a>
+    	<a href="http://www.21wpc.com" target="_blank"><p style="height:150px; width:120px; position:relative; left:751px; top:11px; margin:0px; float:left;"></p></a>
+    </div>
+    
+	<section id="searchband">
+
+    	<section id="thenav" onMouseOver="navhover()" onMouseOut="navunhover()">
+            <p id="thenavlabel">MENU</p>
+ 			<ul id="navdroplist">
+        		<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="index5.html" class="navdrop-lnk">Home</a></li>
+        		<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="techprog5.html" class="navdrop-lnk">Technical Programme</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="plens5.html" class="navdrop-lnk">Plenaries and Special Sessions</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="pubs5.html" class="navdrop-lnk">Publications</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="photos5.html" class="navdrop-lnk">Photos and Videos</a></li>
+        	</ul>
+    	</section>
+    
+    	<div id="searcharea">
+    	<form method="link" id="searchform" action="search5.html" name="wpcsearch">
+        	<div style="height:31px;margin:0px;">
+        	<label class="search">Search</label>
+        	<input name="searchtxt" value="" id="searchtxtbox" type="text" size="50" maxlength="255">
+            <input type="submit" value="GO">
+            <label style="height:21px;margin:0px;"><a href="#" onClick="advsearchdisp()" id="open-advsearch">Advanced options</a></label></div>
+            <div id="advformarea" class="hideelem">
+            <label>Focus search on:</label><br>
+            <input type="radio" name="searchfoc" value="all" checked> All fields<br>
+            <!--<input type="radio" name="searchfoc" value="sess"> Session Type 
+            	<select name="block" style="margin: 0px 0px 0px 10px;">
+                	<option value="Block1" label="Technical Programme - Block 1">Technical Programme - Block 1</option>
+                    <option value="Block2" label="Technical Programme - Block 2">Technical Programme - Block 2</option>
+                    <option value="Block3" label="Technical Programme - Block 3">Technical Programme - Block 3></option>
+                    <option value="Block4" label="Technical Programme - Block 4">Technical Programme - Block 4</option>
+                    <option value="PL" label="Plenaries">Plenaries</option>
+                    <option value="SP" label="Special Sessions">Special Sessions</option>
+                    <option value="EW" label="Expert Workshops">Expert Workshops</option>
+                    <option value="MS" label="Ministerial Sessions">Ministerial Sessions</option>
+                    <option value="RS" label="Special Russian Sessions">Special Russian Sessions</option>
+                    <option value="PU" label="Publications">Publications</option>
+                    <option value="PV" label="Photos and videos">Photos and videos</option>
+                </select><br>-->
+            <input type="radio" name="searchfoc" value="auth"> Authors only<br>
+            <input type="radio" name="searchfoc" value="titl"> Titles only<br>
+            <input type="radio" name="searchfoc" value="orgs"> Organisations only<br><br>
+            <input type="checkbox" name="blockfoc"> Limit search to:
+            	<select name="block" style="margin: 0px 0px 0px 10px;">
+                	<option value="Block1" label="Technical Programme - Block 1">Technical Programme - Block 1</option>
+                    <option value="Block2" label="Technical Programme - Block 2">Technical Programme - Block 2</option>
+                    <option value="Block3" label="Technical Programme - Block 3">Technical Programme - Block 3></option>
+                    <option value="Block4" label="Technical Programme - Block 4">Technical Programme - Block 4</option>
+                    <option value="PL" label="Plenaries">Plenaries</option>
+                    <option value="SP" label="Special Sessions">Special Sessions</option>
+                    <option value="EW" label="Expert Workshops">Expert Workshops</option>
+                    <option value="MS" label="Ministerial Sessions">Ministerial Sessions</option>
+                    <option value="RS" label="Special Russian Sessions">Special Russian Sessions</option>
+                    <!--<option value="PU" label="Publications">Publications</option>
+                    <option value="PV" label="Photos and videos">Photos and videos</option>-->
+                </select><br>
+            <input type="hidden" name="casematch" value="false">
+            </div>
+    	</form>
+        </div>
+        
+    </section>
+</header>
+
+<section class="hideelem" id="speakpreviewbox">
+	<section id="speakprev-inner">
+    	<p id="speakprev-close"><a href="javascript:;" onclick="showhideelem('speakpreviewbox')">close</a></p>
+        <p id="speakprev-name"></p>
+        <p id="speakprev-joborgcountry"></p>
+        <p id="speakprev-title"></p>
+        <p id="speakprev-abstract"></p>
+        <table id="prevlnkstable" cellpadding="0" cellspacing="0">
+        	<tr>
+            	<td class="tdlnk" id="speakprev-paplnk" width="128" height="76" align="center"></td>
+                <td class="tdlnk" id="speakprev-preslnk" width="128" height="76" align="center"></td>
+                <td class="tdlnk" id="speakprev-vidlnk" width="128" height="76" align="center"></td>
+            </tr>
+            <tr>
+            	<td align="center">paper</td>
+                <td align="center">presentation</td>
+                <td align="center">film</td>
+			</tr>
+		</table>          
+    </section>
+</section>
+
+<section class="hideelem" id="vidplayarea">
+	<section id="vidplayarea-inner">
+    	<p id="vidplayarea-close"><a href="javascript:;" onclick="closevidplayer()">close</a></p>
+        <video id="vidplayer" height="440" src="movs/Moscow Stats Speeches.mp4" controls>
+        </video>
+    </section>
+</section>
+
+
+<section id="blockcatarea">
+	<p class="sectitle">Your Search</p>
+
+	<section id="searchresblock">
+<script language="javascript">
+
+function searchdisp(searchtxtval,searchfocval,blockfocval,constrainval,casematch) {
+	//if 'all' search within speaknamearr, speakorgarr, speakcountryarr, speaktitlearr, speakabstarr
+	speakcount = speaknamearr.length;
+	//alert(speakcount);
+	
+	//show search terms
+	//alert(searchtxtval);
+	//in url spaces are converted to '+' need to change back
+	searchtxtval = searchtxtval.replace(/\+/g,' ');
+	searchtxtval = decodeURI(searchtxtval);
+	
+	document.write('<p class="searchcontext">Your search for "' + searchtxtval + '"</p>');
+	
+	var searchscoredict = {};
+	searchtxtval = encodeURI(searchtxtval);
+	
+	if (searchtxtval.length>=2) {
+		
+		if (casematch == 'false') {
+			searchtxtval = searchtxtval.toLowerCase();
+		}
+		
+		searchexp = new RegExp(searchtxtval, 'g');
+		if (searchfocval=='all') {
+			//alert(searchexp);
+
+			for (s=0;s<speakcount;s++) {
+				if (casematch == 'false') {
+					nameenc = encodeURI(decodeURI(speaknamearr[s].toLowerCase()));
+					//if (speaknamearr[s].toLowerCase().indexOf('besim')==0) {
+						//alert(nameenc);
+						//alert(searchexp);
+					//}
+					namecount = (nameenc.toLowerCase().match(searchexp) || []).length;
+					namecountlat = (speaknamelatin[s].toLowerCase().match(searchexp) || []).length;
+					orgcount = (speakorgarr[s].toLowerCase().match(searchexp) || []).length;
+					countrycount = (speakcountryarr[s].toLowerCase().match(searchexp) || []).length;
+					titlecount = (speaktitlearr[s].toLowerCase().match(searchexp) || []).length;
+					abstcount = (speakabstarr[s].toLowerCase().match(searchexp) || []).length;
+				} else {
+					namecount = (speaknamearr[s].match(searchexp) || []).length;
+					namecountlat = (speaknamelatin[s].match(searchexp) || []).length;
+					orgcount = (speakorgarr[s].match(searchexp) || []).length;
+					countrycount = (speakcountryarr[s].match(searchexp) || []).length;
+					titlecount = (speaktitlearr[s].match(searchexp) || []).length;
+					abstcount = (speakabstarr[s].match(searchexp) || []).length;
+				}
+				
+				totmatchscore = namecount*4 + namecountlat*4 + orgcount*4 + countrycount*4 + titlecount*2 + abstcount;
+				
+				if (totmatchscore>0) {
+					if (searchscoredict.hasOwnProperty(totmatchscore)) { //if another speaker record is already in the dict with this search score do this
+						searchscoredict[totmatchscore].push(s);
+					} else {
+						speakmatcharr = new Array();
+						speakmatcharr = [totmatchscore,s]; //first entry in list is the score as integer, second is first speaker record with this match score, subsequent speaker records with this score will be additional items in this list
+						searchscoredict[totmatchscore] = speakmatcharr;
+					}
+				}
+			}		
+		} else {
+			if (searchfocval=='auth') {
+				for (s=0;s<speakcount;s++) {
+					if (casematch=='false') {
+						nameenc = encodeURI(decodeURI(speaknamearr[s].toLowerCase()));
+						namecount = (nameenc.match(searchexp) || []).length;
+						namecountlat = (speaknamelatin[s].toLowerCase().match(searchexp) || []).length;
+					} else {
+						nameenc = encodeURI(decodeURI(speaknamearr[s].toLowerCase()));
+						namecount = (nameenc.match(searchexp) || []).length;
+						namecountlat = (speaknamelatin[s].match(searchexp) || []).length;
+					}
+					totmatchscore = namecount*4 + namecountlat*4;
+					
+					if (totmatchscore>0) {
+						if (searchscoredict.hasOwnProperty(totmatchscore)) { //if another speaker record is already in the dict with this search score do this
+							searchscoredict[totmatchscore].push(s);
+						} else {
+							speakmatcharr = new Array();
+							speakmatcharr = [totmatchscore,s]; //first entry in list is the score as integer, second is first speaker record with this match score, subsequent speaker records with this score will be additional items in this list
+							searchscoredict[totmatchscore] = speakmatcharr;
+						}
+					}
+				}
+			}
+
+			if (searchfocval=='titl') {
+				for (s=0;s<speakcount;s++) {
+					if (casematch=='false') {
+						titlecount = (speaktitlearr[s].toLowerCase().match(searchexp) || []).length;
+					} else {
+						titlecount = (speaktitlearr[s].match(searchexp) || []).length;
+					}
+					totmatchscore = titlecount*4;
+					
+					if (totmatchscore>0) {
+						if (searchscoredict.hasOwnProperty(totmatchscore)) { //if another speaker record is already in the dict with this search score do this
+							searchscoredict[totmatchscore].push(s);
+						} else {
+							speakmatcharr = new Array();
+							speakmatcharr = [totmatchscore,s]; //first entry in list is the score as integer, second is first speaker record with this match score, subsequent speaker records with this score will be additional items in this list
+							searchscoredict[totmatchscore] = speakmatcharr;
+						}
+					}
+				}
+			}
+			
+			if (searchfocval=='orgs') {
+				for (s=0;s<speakcount;s++) {
+					if (casematch=='false') {
+						orgcount = (speakorgarr[s].toLowerCase().match(searchexp) || []).length;
+					} else {
+						orgcount = (speakorgsarr[s].match(searchexp) || []).length;
+					}
+					
+					totmatchscore = orgcount*4;
+					
+					if (totmatchscore>0) {
+						if (searchscoredict.hasOwnProperty(totmatchscore)) { //if another speaker record is already in the dict with this search score do this
+							searchscoredict[totmatchscore].push(s);
+						} else {
+							speakmatcharr = new Array();
+							speakmatcharr = [totmatchscore,s]; //first entry in list is the score as integer, second is first speaker record with this match score, subsequent speaker records with this score will be additional items in this list
+							searchscoredict[totmatchscore] = speakmatcharr;
+						}
+					}
+				}
+			}			
+		}
+		
+		//conditional search match scoring over, now on to display
+		//Find number of matches
+		matchsize = 0;
+		var key;
+		for (key in searchscoredict) {
+			if (searchscoredict.hasOwnProperty(key)) matchsize++;
+		}
+		//alert(matchsize);
+		for (score=20000;score>0;score--) {
+			
+			if (searchscoredict.hasOwnProperty(score)) {
+				//alert(searchscoredict[score]);
+				
+				for (speak=1;speak<searchscoredict[score].length;speak++) {
+					
+					//alert(searchscoredict[score][speak]);
+					//document.write('<p>' + searchscoredict[score][0].toString() + '|||||' + speaknamearr[searchscoredict[score][speak]] + '</p>')
+
+					//alert('ok');
+					var oktodisplay = 1;
+					//Check if search result is within block search constraint, if cosntraint has been selected
+					if (constrainval=='on') {
+						//alert(blockarr[blockfocval]);
+						//alert(speaksessarr[searchscoredict[score][speak]]);
+						if (blockarr[blockfocval].indexOf(speaksessarr[searchscoredict[score][speak]])!=-1) {
+							oktodisplay = 1;
+						} else {
+							oktodisplay = 0;
+						}
+					}
+					
+					if (oktodisplay==1) {
+					
+						document.write('<section class="speakerdisp">');
+						document.write('<section class="speakerdeets">');
+						//+ searchscoredict[score][0].toString() + ' | '
+						document.write('<p class="pres2speaker">' + decodeURI(speaknamearr[searchscoredict[score][speak]]) + ', <span style="color:#888;">' + speakjobarr[searchscoredict[score][speak]] + ' ' + speakorgarr[searchscoredict[score][speak]] + ', ' + speakcountryarr[searchscoredict[score][speak]] + '</span></p>');
+						if (speaktitlearr[searchscoredict[score][speak]]!='') { //if there is a presentation title availables show it
+							document.write('<p class="prestitle"><i>Presentation:</i> ' + speaktitlearr[searchscoredict[score][speak]] + '</p>'); }
+						document.write('</section>'); //end speakerdeets section
+						
+						document.write('<section class="speakerlnks">');
+						document.write('<table cellspacing="0" cellpadding="0" border="0" class="lnkstable"><tr>');
+						
+						if (speakabstarr[searchscoredict[score][speak]]!='') {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="javascript:;" onclick="disppreview(' + searchscoredict[score][speak] + ')">' + '<img src="images/abstplusicon.gif" height="24" border="0"></a></td>');
+						} else {
+							//document.write('<td bgcolor="#EDEDED" height="38" width="64"><img src="images/abstplusicon-none.gif" height="24"></td>');							
+						}
+						
+						if (speakpapfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="pdfs/' + speakpapfilearr[searchscoredict[score][speak]] + '.pdf" target="_blank">' + '<img src="images/Adobe_PDF_Icon.png" height="24" border="0"></a></td>');
+						} else {
+							//document.write('<td bgcolor="#EDEDED" height="38" width="64"><img src="images/Adobe_PDF_Icon-none.png" height="24"></td>');							
+						}
+						
+						if (speakpresfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="pdfs/' + speakpresfilearr[searchscoredict[score][speak]] + '.pdf" target="_blank">' + '<img src="images/Adobe_PDF_Icon.png" height="24" border="0"></a></td>');
+						} else {
+							//document.write('<td bgcolor="#EDEDED" height="38" width="64"><img src="images/Adobe_PDF_Icon-none.png" height="24"></td>');
+						}
+						
+						if (speakvidfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="javascript:;" onClick="openvidplayer(' + searchscoredict[score][speak] + ')">' + '<img src="images/icon_mpeg4.gif" height="24" border="0"></a></td>');
+						} else {
+							//document.write('<td bgcolor="#EDEDED" height="38" width="64"><img src="images/icon_mpeg4-none.gif" height="24"></td>');
+						}
+						
+						//display link to session
+						var keys = [];
+						for (key in blockarr) {
+							if (blockarr.hasOwnProperty(key)) {
+								if (blockarr[key].indexOf(speaksessarr[searchscoredict[score][speak]])!=-1) {
+									targblock = key;
+								}
+							}
+						}
+						techprogblocks = ['Block1','Block2','Block3','Block4'];
+	
+						if (techprogblocks.indexOf(targblock)!=-1) {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="techprog5.html?sesstarg=' + searchscoredict[score][speak].toString() + '">' + '<img src="images/gotosess.png" height="24" border="0"></a></td>');
+						} else {
+							document.write('<td bgcolor="#EDEDED" height="38" width="64" class="tdlnk"><a href="plens5.html?sesstarg=' + searchscoredict[score][speak].toString() + '">' + '<img src="images/gotosess.png" height="24" border="0"></a></td>');
+						}		
+						
+						document.write('</tr><tr>');
+						
+						if (speakabstarr[searchscoredict[score][speak]]!='') {
+							document.write('<td>abstract</td>');
+						} else {
+							//
+						}
+						if (speakpapfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td>paper</td>');
+						} else {
+							//
+						}
+						if (speakpresfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td>presentation</td>');
+						} else {
+							//
+						}
+						if (speakvidfilearr[searchscoredict[score][speak]]!='') {
+							document.write('<td>film</td>');
+						} else {
+							//
+						}
+						
+						document.write('<td>go to session</td>');
+							
+						document.write('</tr></table>');
+						document.write('</section>'); //ends speakerlnks section
+						document.write('</section>'); //ends speakerdisp section
+					}
+				}
+			}
+		}
+		
+	}
+}
+
+
+//get full url including search terms
+searchurl = window.location.href;
+//get search text string from searchurl
+searchtxtpos = searchurl.indexOf('searchtxt=');
+aftersearchtxt = searchurl.substring(searchtxtpos,searchurl.length);
+searchtxtvalend = aftersearchtxt.indexOf('&');
+searchtxtval = aftersearchtxt.substring(10,searchtxtvalend);
+
+//get searchfocus string, an advanced search option - default is 'all'
+searchfocpos = searchurl.indexOf('searchfoc=');
+aftersearchfoc = searchurl.substring(searchfocpos,searchurl.length);
+searchfocvalend = aftersearchfoc.indexOf('&');
+searchfocval = aftersearchfoc.substring(10,searchfocvalend);
+
+//get block constrained checkbox value, an advanced search option - default is '0'
+//does not get passed if unchecked so need to test for existence
+constrainpos = searchurl.indexOf('blockfoc=');
+if (constrainpos!=-1) {
+	afterconstrain = searchurl.substring(constrainpos,searchurl.length);
+	constrainvalend = afterconstrain.indexOf('&');
+	constrainval = afterconstrain.substring(9,constrainvalend);
+	if (constrainval=='on') {
+	} else {
+		alert('problem');
+	}
+} else {
+	constrainval = 'off';
+}
+
+//get blockfocus string, an advanced search option which will be ignored if searchfocus isn't 'sess'
+blockfocpos = searchurl.indexOf('block=');
+afterblockfoc = searchurl.substring(blockfocpos,searchurl.length);
+blockfocvalend = afterblockfoc.indexOf('&');
+blockfocval = afterblockfoc.substring(6,blockfocvalend);
+
+//get casematch string, should be 'true' or 'false'
+//will be last variable so no & at end
+casematchpos = searchurl.indexOf('casematch=');
+aftercasematch = searchurl.substring(casematchpos,searchurl.length);
+casematchvalend = searchurl.length;
+casematchval = aftercasematch.substring(10,casematchvalend);
+
+searchdisp(searchtxtval,searchfocval,blockfocval,constrainval,casematchval);
+//alert(searchtxtval);
+//alert(searchfocval);
+//alert(blockfocval);
+//alert(constrainval);
+//alert(casematchval);
+
+</script>
+</section>
+
+</section>
+
+<footer>
+<p style="font-size:x-large; color:#ccc; margin: 0px 0px 0px 0px;">About using the protected content on this disc</p>
+<p style="font-size:small; color:#FFFFFF;">The html, pdf and video files on this disc have been copy protected. The files can only be accessed when running from the original disc.</p>
+<p style="font-size:small; color:#FFFFFF;">This software environment works like a standard web browser, allowing you to navigate, search and open files in a similar fashion to using a website. If you experience any problems please email the Energy Institute, e:<a style="color:#FFFFFF" href="mailto:pubs@energyinst.org" title="Email Energy Institute for tech support on this disc" target="_blank">pubs@energyinst.org</a>.</p>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+
+<link rel="stylesheet" type="text/css" href="wpc2014.css"></link>
+
+<script src="wpcsearch.js" language="javascript" type="text/javascript"></script>
+<script language="javascript">
+
+function advsearchdisp() {
+	if (document.getElementById('advformarea').className == 'hideelem') {
+		document.getElementById('advformarea').className = 'showelem';
+		document.getElementById('advformarea').setAttribute('class','showelem');
+		document.getElementById('open-advsearch').style.backgroundPosition = "0px -44px";
+	} else {
+		document.getElementById('advformarea').className = 'hideelem';
+		document.getElementById('advformarea').setAttribute('class','hideelem');
+		document.getElementById('open-advsearch').style.backgroundPosition = "0px -2px";
+	}
+}
+function thenavdropdisp() {
+	if (document.getElementById('thenavdrop').className == 'hideelem') {
+		document.getElementById('thenavdrop').className = 'showelem';
+		document.getElementById('thenavdrop').setAttribute('class','showelem');
+	} else {
+		document.getElementById('thenavdrop').className = 'hideelem';
+		document.getElementById('thenavdrop').setAttribute('class','hideelem');
+	}
+}
+function sessblkdisp(sessblkid) {
+	blklist = new Array();
+	blklist = ['blklistBlock1','blklistBlock2','blklistBlock3','blklistBlock4'];
+	if (document.getElementById(sessblkid).className == 'sessblk-hide') {
+		document.getElementById(sessblkid).className = 'sessblk-show';
+		document.getElementById(sessblkid).setAttribute('class','sessblk-show');		
+	} else {
+		document.getElementById(sessblkid).className = 'sessblk-hide';
+		document.getElementById(sessblkid).setAttribute('class','sessblk-hide');
+	}	
+	for (i=0;i<4;i++) {
+		if (blklist[i]==sessblkid) {
+		} else {
+			document.getElementById(blklist[i]).className = 'sessblk-hide';
+		}
+	}
+}
+function sessareadisp(sessareaid) {
+	if (document.getElementById(sessareaid).className == 'sessarea-hide') {
+		document.getElementById(sessareaid).className = 'sessarea-show';
+		document.getElementById(sessareaid).setAttribute('class','sessarea-show');		
+	} else {
+		document.getElementById(sessareaid).className = 'sessarea-hide';
+		document.getElementById(sessareaid).setAttribute('class','sessarea-hide');
+	}
+}
+
+function navhover() {
+	document.getElementById('thenav').style.borderColor = '#444';
+	document.getElementById('navdroplist').style.display = 'block';
+}
+function navunhover() {
+	document.getElementById('thenav').style.borderColor = '#fff';
+	document.getElementById('navdroplist').style.display = 'none';
+}
+function navlnkhover(liobj) {
+	liobj.style.backgroundColor = '#f60';
+	liobj.style.color = '#ccc';
+}
+function navlnkunhover(liobj) {
+	liobj.style.background = 'rgba(240,240,240,0.88)';
+	liobj.style.color = '#444';
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+	<div id="focalband">
+    	<a href="http://www.world-petroleum.org" target="_blank"><p style="height:90px; width:280px; position:relative; left:730px; top:46px; margin:0px; float:left;"></p></a>
+    	<a href="http://www.21wpc.com" target="_blank"><p style="height:150px; width:120px; position:relative; left:751px; top:11px; margin:0px; float:left;"></p></a>
+    </div>
+    
+	<section id="searchband">
+
+    	<section id="thenav" onMouseOver="navhover()" onMouseOut="navunhover()">
+            <p id="thenavlabel">MENU</p>
+ 			<ul id="navdroplist">
+        		<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="index5.html" class="navdrop-lnk">Home</a></li>
+        		<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="techprog5.html" class="navdrop-lnk">Technical Programme</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="plens5.html" class="navdrop-lnk">Plenaries and Special Sessions</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="pubs5.html" class="navdrop-lnk">Publications</a></li>
+            	<li onMouseOver="navlnkhover(this)" onMouseOut="navlnkunhover(this)"><a href="photos5.html" class="navdrop-lnk">Photos and Videos</a></li>
+        	</ul>
+    	</section>
+    
+    	<div id="searcharea">
+    	<form method="link" id="searchform" action="search5.html" name="wpcsearch">
+        	<div style="height:31px;margin:0px;">
+        	<label class="search">Search</label>
+        	<input name="searchtxt" value="" id="searchtxtbox" type="text" size="50" maxlength="255">
+            <input type="submit" value="GO">
+            <label style="height:21px;margin:0px;"><a href="#" onClick="advsearchdisp()" id="open-advsearch">Advanced options</a></label></div>
+            <div id="advformarea" class="hideelem">
+            <label>Focus search on:</label><br>
+            <input type="radio" name="searchfoc" value="all" checked> All fields<br>
+            <!--<input type="radio" name="searchfoc" value="sess"> Session Type 
+            	<select name="block" style="margin: 0px 0px 0px 10px;">
+                	<option value="Block1" label="Technical Programme - Block 1">Technical Programme - Block 1</option>
+                    <option value="Block2" label="Technical Programme - Block 2">Technical Programme - Block 2</option>
+                    <option value="Block3" label="Technical Programme - Block 3">Technical Programme - Block 3></option>
+                    <option value="Block4" label="Technical Programme - Block 4">Technical Programme - Block 4</option>
+                    <option value="PL" label="Plenaries">Plenaries</option>
+                    <option value="SP" label="Special Sessions">Special Sessions</option>
+                    <option value="EW" label="Expert Workshops">Expert Workshops</option>
+                    <option value="MS" label="Ministerial Sessions">Ministerial Sessions</option>
+                    <option value="RS" label="Special Russian Sessions">Special Russian Sessions</option>
+                    <option value="PU" label="Publications">Publications</option>
+                    <option value="PV" label="Photos and videos">Photos and videos</option>
+                </select><br>-->
+            <input type="radio" name="searchfoc" value="auth"> Authors only<br>
+            <input type="radio" name="searchfoc" value="titl"> Titles only<br>
+            <input type="radio" name="searchfoc" value="orgs"> Organisations only<br><br>
+            <input type="checkbox" name="blockfoc"> Limit search to:
+            	<select name="block" style="margin: 0px 0px 0px 10px;">
+                	<option value="Block1" label="Technical Programme - Block 1">Technical Programme - Block 1</option>
+                    <option value="Block2" label="Technical Programme - Block 2">Technical Programme - Block 2</option>
+                    <option value="Block3" label="Technical Programme - Block 3">Technical Programme - Block 3></option>
+                    <option value="Block4" label="Technical Programme - Block 4">Technical Programme - Block 4</option>
+                    <option value="PL" label="Plenaries">Plenaries</option>
+                    <option value="SP" label="Special Sessions">Special Sessions</option>
+                    <option value="EW" label="Expert Workshops">Expert Workshops</option>
+                    <option value="MS" label="Ministerial Sessions">Ministerial Sessions</option>
+                    <option value="RS" label="Special Russian Sessions">Special Russian Sessions</option>
+                    <!--<option value="PU" label="Publications">Publications</option>
+                    <option value="PV" label="Photos and videos">Photos and videos</option>-->
+                </select><br>
+            <input type="hidden" name="casematch" value="false">
+            </div>
+    	</form>
+        </div>
+        
+    </section>
+</header>
+
+<section id="mainoptarea">
+	<div class="mainopt" id="mainopt-techprog"><a id="mainopt-techprog-lnk" href="techprog5.html" style="width:100%; height:100%;">
+	    <p class="mainopt-title" id="techprog-title">Technical Programme</p><p style="height:140px;margin:0px;"></p></a></div>
+    <div class="mainopt" id="mainopt-plens"><a id="mainopt-techprog-lnk" href="plens5.html" style="width:100%; height:100%;"><p class="mainopt-title" id="plens-title">Plenaries, Ministerial and Special Sessions</p><p style="height:140px;margin:0px;"></p></a></div>
+    <div class="mainopt" id="mainopt-pubs"><a id="mainopt-techprog-lnk" href="pubs5.html" style="width:100%; height:100%;"><p class="mainopt-title" id="pubs-title">Publications</p><p style="height:168px;margin:0px;"></p></a></div>
+    <div class="mainopt" id="mainopt-photos"><a id="mainopt-techprog-lnk" href="photos5.html" style="width:100%; height:100%;"><p class="mainopt-title" id="photovid-title">Photos and Videos</p><p style="height:168px;margin:0px;"></p></a></div>
+</section>
+
+<footer>
+<p style="font-size:x-large; color:#ccc; margin: 0px 0px 0px 0px;">About using the protected content on this disc</p>
+<p style="font-size:small; color:#FFFFFF;">The html, pdf and video files on this disc have been copy protected. The files can only be accessed when running from the original disc.</p>
+<p style="font-size:small; color:#FFFFFF;">This software environment works like a standard web browser, allowing you to navigate, search and open files in a similar fashion to using a website. If you experience any problems please email the Energy Institute, e:<a style="color:#FFFFFF" href="mailto:pubs@energyinst.org" title="Email Energy Institute for tech support on this disc" target="_blank">pubs@energyinst.org</a>.</p>
+</footer>
+
+</body>
+</html>
